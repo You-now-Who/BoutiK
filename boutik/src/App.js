@@ -8,6 +8,7 @@ import ProductDetails from './components/ProductDetails';
 import {BrowserRouter, Route, Routes, Link} from 'react-router-dom';
 import MapDemo from './components/MapDemo';
 import Blog from './components/Blog';
+import Calc from './components/Calc';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="maps" element={<MapDemo />} />
           <Route path="blog" element={<Blog />} />
+          <Route path="cal" element={<Calc />} />
           <Route path="/product/:productId" element={<ProductDetails/>} />
           
         </Route>
