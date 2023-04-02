@@ -4,6 +4,7 @@ import { auth } from "../../firebase";
 import {useNavigate} from 'react-router-dom';
 import firebase from 'firebase/app';
 
+
 setPersistence(auth, browserSessionPersistence).then(() => {
     console.log("Persistence set")
   }).catch((error) => {

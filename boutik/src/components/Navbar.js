@@ -3,10 +3,12 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
 import { auth } from '../firebase'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
+  { name: 'Shop', href: '#', current: false },
   { name: 'Team', href: '#', current: false },
   { name: 'Projects', href: '#', current: false },
   { name: 'Calendar', href: '#', current: false },
@@ -16,12 +18,27 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Nabar() {
-    const [user, setUser] = useState(auth.currentUser)
-    
+export default function Navbar() {
+    const [authUser, setAuthUser] = useState(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const listen = onAuthStateChanged(auth, (user) => {
+          if (user) {
+            setAuthUser(user);
+            console.log(user)
+          } else {
+            setAuthUser(null);
+          }
+        });
+        return () => listen();
+    }, []);
+
+
     const signOut = () => {
         auth.signOut()
-        setUser(null)
+        // navigate("/login")
+        
     }
 
 

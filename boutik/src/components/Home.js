@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { auth } from '../firebase'
 import { onAuthStateChanged } from "firebase/auth";
+import Carousel from './home/Carousel';
+import ProductRow from './home/ProductRow';
 
 export default function Home() {
     const [authUser, setAuthUser] = useState(null);
@@ -22,9 +24,23 @@ export default function Home() {
     return (
       <div>
         {authUser ? (
-          <p>Welcome, {authUser.email}!</p>
+            <>
+            <div className="max-w-screen mx-auto flex justify-center bg-white">
+                <Carousel style={{ width: '100vw' }} />                    
+            </div>
+
+            <ProductRow />
+
+            
+            </>
         ) : (
-          <p>Please log in.</p>
+            <div className="max-w-screen mx-auto px-4">
+                <div className="flex flex-col items-center justify-center h-screen">
+                    <h1 className="text-4xl font-bold text-gray-800">Welcome to Boutik</h1>
+                     <p className="text-gray-600">Please login or register to continue</p>
+                </div>
+
+            </div>
         )}
         {/* your login and logout components go here */}
       </div>
