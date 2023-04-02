@@ -8,7 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Shop', href: '/home', current: false },
+  { name: 'Shop', href: '/', current: false },
   { name: 'How it is calculated', href: '/blog', current: false },
   { name: 'Donate Clothes', href: '/maps', current: false },
   { name: 'Sustainiblity Calculator', href: '/cal', current: false },

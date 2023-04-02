@@ -24,7 +24,7 @@ export default function Register() {
   if (auth.currentUser) {
     {console.log("Logged in")}
     {console.log(auth.currentUser)}
-    navigate("/home")
+    navigate("/")
   }
   }, [auth.currentUser])
 
@@ -40,7 +40,7 @@ export default function Register() {
           signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
               console.log("Sign In")})
-              navigate("/home")
+              navigate("/")
 
             .catch((error) => {
               console.log(error);

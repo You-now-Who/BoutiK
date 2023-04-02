@@ -18,7 +18,7 @@ export default function Login() {
 
     useEffect(() => {
     if (auth.currentUser) {
-      navigate("/home");
+      navigate("/");
       console.log("Logged in")
       console.log(auth.currentUser)
     }
@@ -29,7 +29,7 @@ export default function Login() {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           console.log(userCredential);
-          navigate("/home");
+          navigate("/");
         })
         .catch((error) => {
           if (error.code === "auth/user-not-found") {
