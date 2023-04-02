@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react'
 import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 import { Link } from "react-router-dom"
 
@@ -8,16 +9,35 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const navigate = useNavigate();
+
+  if (auth.currentUser) {
+    navigate("/home")
+  }
 
   const signUp = (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log(userCredential);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (password !== passwordConfirm) {
+      alert("Passwords do not match");
+    }
+    else{
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          console.log(userCredential);
+          signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              console.log("Sign In")})
+              navigate("/home")
+
+            .catch((error) => {
+              console.log(error);
+            }
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }  
   };
   
 
