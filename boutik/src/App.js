@@ -10,8 +10,6 @@ function App() {
   return (
     <>
       <Nabar />
-      
-      <BrowserRouter>
       <Routes>
         <Route path="/" >
           <Route path='home' element={<Home />} />
@@ -19,7 +17,7 @@ function App() {
           <Route path="register" element={<Register />} />
         </Route>
       </Routes>
-      </BrowserRouter>
+      
 
       {/* <Login /> */}
       {/* <Register /> */}

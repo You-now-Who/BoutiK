@@ -1,16 +1,27 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence  } from "firebase/auth";
+import React, { useEffect, useState } from "react";
 import { auth } from "../../firebase";
 import {useNavigate} from 'react-router-dom';
+import firebase from 'firebase/app';
 
+setPersistence(auth, browserSessionPersistence).then(() => {
+    console.log("Persistence set")
+  }).catch((error) => {
+    console.log(error)
+  })
+  
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
+    useEffect(() => {
     if (auth.currentUser) {
       navigate("/home");
+      console.log("Logged in")
+      console.log(auth.currentUser)
     }
+    }, [])
 
     const signIn = (e) => {
       e.preventDefault();
@@ -20,7 +31,12 @@ export default function Login() {
           navigate("/home");
         })
         .catch((error) => {
-          console.log(error);
+          if (error.code === "auth/user-not-found") {
+            alert("User not found");
+          } else if (error.code === "auth/wrong-password") {
+            alert("Wrong password");
+          }
+          
         });
     };
 
@@ -37,7 +53,7 @@ export default function Login() {
           alt="Phone image" />
       </div>
       <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
-        <form>
+        <form onSubmit={signIn}>
             <h1 className='text-3xl font-bold my-5' >Log In</h1>
           {/* <!-- Email input --> */}
           <div className="relative mb-6 outline" data-te-input-wrapper-init>
@@ -49,11 +65,7 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required/>
-            {/* <label
-              for="exampleFormControlInput3"
-              className="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-800 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-600 dark:peer-focus:text-neutral-500"
-              >Email address
-            </label> */}
+            
           </div>
 
           {/* <!-- Password input --> */}
@@ -78,7 +90,7 @@ export default function Login() {
                 checked />
               <label
                 className="inline-block pl-[0.15rem] hover:cursor-pointer"
-                for="exampleCheck3">
+                htmlFor="exampleCheck3">
                 Remember me
               </label>
             </div>

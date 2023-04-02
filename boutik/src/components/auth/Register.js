@@ -1,19 +1,32 @@
-import React, {useRef, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-
 import { Link } from "react-router-dom"
+
+
+setPersistence(auth, browserSessionPersistence).then(() => {
+  console.log("Persistence set")
+}).catch((error) => {
+  console.log(error)
+})
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const navigate = useNavigate();
+  
+  
 
+  useEffect( () => {
+  {console.log(auth.currentUser)}
   if (auth.currentUser) {
+    {console.log("Logged in")}
+    {console.log(auth.currentUser)}
     navigate("/home")
   }
+  }, [auth.currentUser])
 
   const signUp = (e) => {
     e.preventDefault();
@@ -39,9 +52,6 @@ export default function Register() {
         });
       }  
   };
-  
-
-
   
   return (
     <>

@@ -1,6 +1,9 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom'
+import { auth } from '../firebase'
+import { useState } from 'react'
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -14,6 +17,14 @@ function classNames(...classes) {
 }
 
 export default function Nabar() {
+    const [user, setUser] = useState(auth.currentUser)
+    
+    const signOut = () => {
+        auth.signOut()
+        setUser(null)
+    }
+
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -63,6 +74,11 @@ export default function Nabar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                
+
+
+                { (auth.currentUser) ? (
+                <>
                 <button
                   type="button"
                   className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -70,8 +86,6 @@ export default function Nabar() {
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
-
-                {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -118,6 +132,7 @@ export default function Nabar() {
                           <a
                             href="#"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            onClick={signOut}
                           >
                             Sign out
                           </a>
@@ -126,6 +141,24 @@ export default function Nabar() {
                     </Menu.Items>
                   </Transition>
                 </Menu>
+                </>) : (
+                    <div className="flex items-center">
+                        
+                            <a href="/login" className="text-sm font-medium text-gray-300 hover:text-white">
+                                Sign in
+                            </a>
+                        
+
+                        {/* <Link href="/register"> */}
+
+                            <a href='/register' className="ml-4 text-sm font-medium text-gray-300 hover:text-white">
+                                Sign up
+                            </a>
+                        {/* </Link> */}
+                                    
+                    </div>)}
+
+
               </div>
             </div>
           </div>
