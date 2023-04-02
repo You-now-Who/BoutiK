@@ -4,7 +4,10 @@ import Navbar from './components/Navbar';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Home from './components/Home';
+import ProductDetails from './components/ProductDetails';
 import {BrowserRouter, Route, Routes, Link} from 'react-router-dom';
+import MapDemo from './components/MapDemo';
+import Blog from './components/Blog';
 
 function App() {
   return (
@@ -15,6 +18,10 @@ function App() {
           <Route path='home' element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="maps" element={<MapDemo />} />
+          <Route path="blog" element={<Blog />} />
+          <Route path="/product/:productId" element={<ProductDetails/>} />
+          
         </Route>
       </Routes>
       

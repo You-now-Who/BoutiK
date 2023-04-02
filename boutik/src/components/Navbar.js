@@ -8,10 +8,10 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Shop', href: '#', current: false },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Shop', href: '/home', current: false },
+  { name: 'How it is calculated', href: '/blog', current: false },
+  { name: 'Donate Clothes', href: '/maps', current: false },
+  { name: 'Sustainiblity Calculator', href: '/cal', current: false },
 ]
 
 function classNames(...classes) {
@@ -63,12 +63,12 @@ export default function Navbar() {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src="https://i.imgur.com/BDFtQhs.png"
                     alt="Your Company"
                   />
                   <img
                     className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src="https://i.imgur.com/9Yn0Bgy.png"
                     alt="Your Company"
                   />
                 </div>

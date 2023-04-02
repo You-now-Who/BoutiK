@@ -9,6 +9,7 @@ export default function Home() {
     const [authUser, setAuthUser] = useState(null);
 
     useEffect(() => {
+        console.log("ASJDASUDIu ")
         const listen = onAuthStateChanged(auth, (user) => {
           if (user) {
             setAuthUser(user);
@@ -29,7 +30,11 @@ export default function Home() {
                 <Carousel style={{ width: '100vw' }} />                    
             </div>
 
-            <ProductRow />
+            <ProductRow type="LATEST IN FASHION"/>
+
+            <ProductRow type="TODAY'S DEALS"/>
+
+            <ProductRow type="MOST ECO-FRIENDLY"/>
 
             
             </>
